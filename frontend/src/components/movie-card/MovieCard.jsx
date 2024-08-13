@@ -6,21 +6,27 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function MovieCard() {
+export default function MovieCard({movie}) {
+  const {name,director_name,writter_name,genre,img_link} = movie;
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 350 , maxHeight : 600}}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
+        sx={{ height: 400}}
+        image={img_link}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Directed By : {director_name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Written By : {writter_name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Genre : {genre}
         </Typography>
       </CardContent>
       <CardActions>
