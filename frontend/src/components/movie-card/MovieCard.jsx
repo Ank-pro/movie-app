@@ -13,7 +13,7 @@ export default function MovieCard({movie}) {
       <CardMedia
         sx={{ height: 400}}
         image={img_link}
-        title="green iguana"
+        title=""
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
