@@ -11,20 +11,36 @@ mongoose.connect('mongodb://127.0.0.1:27017/movies')
     .then(()=>console.log("Database connected"))
 
 app.get('/movies',async (req,res)=>{
-    const {page,limit} = req.query;
-    const movies = await Movie.find();
-    res.send(movies);
+    const currentPage = parseInt(req.query.page);
+    const limit = 20;
+    const countMovies = await Movie.countDocuments();
+    const totalPages = Math.ceil(countMovies/limit);
+
+    const moviesToSkip = (currentPage - 1) * limit;
+    const movies = await Movie.find().skip(moviesToSkip).limit(20);
+    res.send(
+        {movies,
+        countMovies,
+        totalPages}
+           
+);
 })
 
 app.get('/movies/search',async (req,res)=>{
-    const {query} = req.query
-
+    const {query,page=1} = req.query;
+    const limit = 20;
+    
     if(!query){
         res.send('Nothing to search');
         return;
     }
-    const movies = await Movie.find({name : new RegExp(query,'i')});
-    res.send(movies);
+    const countMovies = await Movie.find({name : { $regex: `^${query}`, $options: 'i' }}).countDocuments();
+    const totalPages = Math.ceil(countMovies/limit);
+
+    const moviesToSkip = (page - 1) * limit;
+    const movies = await Movie.find({name : { $regex: `^${query}`, $options: 'i' }}).skip(moviesToSkip).limit(20);
+    
+    res.send({movies,totalPages});
 })
 
 app.listen(port,()=>{

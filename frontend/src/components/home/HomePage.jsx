@@ -12,33 +12,33 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const {movies ,filteredMovies} = useSelector(state => state.movies);
   const [searchValue,setSearchValue] = useState('');
-
-  useEffect(()=>{
-    axios.get(`http://localhost:5000/movies?page=${currentPage}&offset=`)
-      .then(res => {
-        const {data} = res;
-        dispatch(setMovies(data));       
-      })
-    
-  },[])
-
-  const fetchPageData = ()=>{
-
-  }
+  const [totalPages, setTotalPages] = useState();
+  const [currentPage,setCurrentPage] = useState(1);
 
   useEffect(()=>{
     if(searchValue){
-    axios.get(`http://localhost:5000/movies/search?query=${searchValue}`)
+      axios.get(`http://localhost:5000/movies/search?query=${searchValue}&page=${currentPage}`)
+        .then(res => {
+          setTotalPages(res.data.totalPages)
+          dispatch(setFilteredMovies(res.data.movies))
+        })
+      }else{
+    axios.get(`http://localhost:5000/movies?page=${currentPage}`)
       .then(res => {
-        dispatch(setFilteredMovies(res.data))
+        const {data} = res;
+        console.log(data)
+        setTotalPages(data.totalPages);
+        dispatch(setMovies(data.movies));       
       })
     }
-  },[searchValue])
+    
+  },[currentPage,searchValue])
+
   
   return (
     <>
       <NavBar setSearchValue={setSearchValue}/>
-      <Pagination/>
+      <Pagination totalPages = {totalPages} setCurrentPage={setCurrentPage}/>
       <div className="movie-list">
         {
           searchValue ?
