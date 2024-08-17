@@ -34,11 +34,11 @@ app.get('/movies/search',async (req,res)=>{
         res.send('Nothing to search');
         return;
     }
-    const countMovies = await Movie.find({name : { $regex: `^${query}`, $options: 'i' }}).countDocuments();
+    const countMovies = await Movie.find({name : new RegExp(query,'i')}).countDocuments();
     const totalPages = Math.ceil(countMovies/limit);
 
     const moviesToSkip = (page - 1) * limit;
-    const movies = await Movie.find({name : { $regex: `^${query}`, $options: 'i' }}).skip(moviesToSkip).limit(20);
+    const movies = await Movie.find({name : new RegExp(query,'i')}).skip(moviesToSkip).limit(20);
     
     res.send({movies,totalPages});
 })

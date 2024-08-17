@@ -10,13 +10,15 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import StarsIcon from "@mui/icons-material/Stars";
 import Icon from "@mui/material/Icon";
+import { useState } from "react";
 
 // Function to generate a tiny, blurred placeholder
 const getBlurredImageUrl = (url) => {
   return `${url}?w=10&blur=5`;
 };
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({ movie,toggleFavourite}) {
+  const [isFav,setIsFav] = useState(false);
   const {
     name,
     director_name,
@@ -26,6 +28,11 @@ export default function MovieCard({ movie }) {
     duration,
     imdb_rating,
   } = movie;
+
+  const handleFav = ()=>{
+    setIsFav(!isFav);
+    toggleFavourite(movie);
+  }
 
   return (
     <Card sx={{ maxWidth: 350, display: "flex", flexDirection: "column" }}>
@@ -69,11 +76,11 @@ export default function MovieCard({ movie }) {
         </Typography>
       </CardContent>
       <CardActions sx={{ marginTop: 0 }}>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon style={{color : 'red'}}/>
+        <IconButton aria-label="add to favorites" onClick={handleFav}>
+          <FavoriteIcon  style={isFav ? {color : "red"} : {}}/>
         </IconButton>
         <div style={{ margin: 0, fontFamily: "sans-serif" }}>
-          Add to Favourites
+          {!isFav ? "Add to Favourites" : "Remove Favourites"}
         </div>
         <Icon style={{ marginLeft: "1rem" }}>
           <StarsIcon style={{ color: "grey" }} />
