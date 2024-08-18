@@ -1,0 +1,9 @@
+.fav-list{
+    position: relative;
+    margin-top: 0.45rem;
+    font-size: 1.2rem;
+    color: rgb(98, 94, 94);
+    cursor: pointer;
+    padding: 3px 1px;
+    border-radius: 3px;
+}

@@ -11,6 +11,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import StarsIcon from "@mui/icons-material/Stars";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // Function to generate a tiny, blurred placeholder
 const getBlurredImageUrl = (url) => {
@@ -18,7 +19,7 @@ const getBlurredImageUrl = (url) => {
 };
 
 export default function MovieCard({ movie,toggleFavourite}) {
-  const [isFav,setIsFav] = useState(false);
+  const {favourites} = useSelector(state => state.movies);
   const {
     name,
     director_name,
@@ -29,8 +30,9 @@ export default function MovieCard({ movie,toggleFavourite}) {
     imdb_rating,
   } = movie;
 
+  const isFav = favourites.some(({_id})=> _id === movie._id)
+
   const handleFav = ()=>{
-    setIsFav(!isFav);
     toggleFavourite(movie);
   }
 

@@ -3,19 +3,12 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import { useDispatch } from "react-redux";
+import { GenreDropdown } from "../GenreDropDown";
+import {NavLink,useNavigate} from 'react-router-dom'
+import './nav.css'
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,15 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar({ setSearchValue }) {
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
+  const navigate = useNavigate();
   const menuId = "primary-search-account-menu";
   
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -81,12 +66,14 @@ export default function NavBar({ setSearchValue }) {
       >
         <Toolbar>
           <Typography
+            onClick={()=>navigate('/')}
             variant="h6"
             noWrap
             component="div"
             sx={{
               display: { xs: "block", sm: "block" },
               fontWeight: "bolder",
+              cursor : 'pointer',
               background:
                 "linear-gradient(to right, rgba(85, 90, 100, 0.8), rgb(210, 150, 100), rgba(170, 135, 195, 0.8))",
               WebkitBackgroundClip: "text",
@@ -108,11 +95,9 @@ export default function NavBar({ setSearchValue }) {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            
+          <Box sx={{ display: 'flex',gap : '2.5rem' }}>
+            <div className="fav-list" onClick={()=> navigate('/fav')}>Favourites</div>
+          <GenreDropdown />
           </Box>
         </Toolbar>
       </AppBar>

@@ -4,6 +4,7 @@ const initialState = {
     movies : [],
     filteredMovies : [],
     favourites : [],
+    genre : 'all'
 }
 
 const movieReducer = createSlice({
@@ -25,10 +26,13 @@ const movieReducer = createSlice({
                 const newList = state.favourites.filter(item => item._id !== movie._id);
                 state.favourites = newList;
             }
+        },
+        getGenre : (state,action)=>{
+            state.genre = action.payload;
         }
     }
 })
 
-export const {setMovies,setFilteredMovies,setFavourites} = movieReducer.actions;
+export const {setMovies,setFilteredMovies,setFavourites,getGenre} = movieReducer.actions;
 
 export default movieReducer.reducer;
