@@ -52,7 +52,7 @@ export const HomePage = ({searchValue}) => {
                 <MovieCard
                   key={movie._id}
                   movie={movie}
-                  toggleFavourite = {()=>addtoFavourites(movie)}
+                  toggleFavourite = {addtoFavourites}
                   
                 />
               );

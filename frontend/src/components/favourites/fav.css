@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'font';
+    src: url('../../../../../../Influx/assignment/Fonts/Fontspring-DEMO-altivo-regular.otf');
+}
+
 .fav-container{
     margin: 2rem;
 }
@@ -6,7 +11,7 @@
     display: flex;
     flex-direction: column;
     gap : 10px;
-    height: 450px;
+    height: 490px;
     width: 280px;
     border: 1px solid rgb(214, 207, 207);
     background-color: rgb(245, 240, 240);
@@ -17,6 +22,7 @@
     border: 1px solid black;
     width: 100%;
     height: 60%;
+    border-radius: 10px;
     display: flex;
     background-color: rgb(39, 40, 40);
     justify-content: center;
@@ -24,18 +30,21 @@
 img{
     width: 80%;
     height: 100%;
-    object-fit: fill;
+    object-fit: cover;
 }
+
+
 .movie-details{
     height: 50%;
     display: flex;
+    flex-direction: column;
     margin-left: 5px;
 }
 
 /* container */
 .fav-movies{
     display: flex;
-    gap : 10px;
+    gap : 0;
     flex-wrap: wrap;
     margin: 1rem;
     background-color: rgb(250, 247, 247);
@@ -49,4 +58,34 @@ img{
 .director,.writer,.genre,.duration{
     font-size: 15px;
     color: rgb(100, 94, 94);
+}
+
+.ratings{
+    display: flex;
+}
+
+.remove-fav{
+    display: flex;
+}
+.fav-rating{
+    display: flex;
+}
+
+.remove-fav p{
+    font-family: 'font',sans-serif;
+    font-size: 15px;
+    position: relative;
+    right: 5px;
+    margin-top: 16px;
+    color: rgb(68, 63, 63);
+}
+.fav-rating p{
+    font-weight: bolder;
+    background-color: goldenrod;
+    padding : 3px;
+    position: absolute;
+    left: 18.95rem;
+    bottom: 8rem;
+    border-radius : 7px;
+    color : whitesmoke;
 }

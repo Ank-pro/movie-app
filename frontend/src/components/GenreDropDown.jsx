@@ -22,7 +22,6 @@ export const GenreDropdown = () => {
   const handleOptions = (e)=>{
     dispatch(getGenre(e.target.value))
   }
-  console.log(genre)
   
   return (
     <div className="dropdown-container">
